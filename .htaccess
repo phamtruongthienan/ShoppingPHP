@@ -1,0 +1,24 @@
+RewriteEngine On
+
+ErrorDocument 404 /shop2408/404.php
+ErrorDocument 403 /shop2408/404.html
+
+# block user access public/source/index.html
+RewriteRule ^/?public\/source\/index\.html$ - [F,L]
+RewriteRule ^/?test.txt$ - [F,L]
+
+#regex
+#làm giao diện thân thiện
+RewriteRule ^trang-chu$ index.php
+
+RewriteRule ^tim-kiem$  type-product.php
+#  http://localhost:8080/shop2408/tim-kiem?key=ipho/page/2
+RewriteRule ^tim-kiem\/key=([a-z]+)\/page\/([0-9]+)$  type-product.php?key=$1&page=$2
+RewriteRule ^([0-9]+)-([0-9a-z-\(\)]+)$ detail-product.php?id=$1&url=$2 
+# điều kiện () phải có dấu \ phía trước
+# RewriteRule ^a?uu=([0-9]+)-([0-9a-z-\(\)]+)$ detail-product.php?id=$1&url=$2
+
+RewriteRule ^([0-9a-z-\(\)]+)$ type-product.php?url=$1
+RewriteRule ^([0-9a-z-\(\)]+)/page/([0-9]*)$ type-product.php?url=$1&page=$2
+
+# dấu + bắt buộc phải có ít nhất 1 ký tự, [trong đây là giới hạn], (biểu thức chính quy)
